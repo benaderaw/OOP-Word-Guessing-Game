@@ -2,7 +2,6 @@ public class StartGame {
 
     private Player player1 = new Player("Player 1");
     private Player player2 = new Player("Player 2");
-    private String currentPlayer;
 
     PlayerInput playerInput = new PlayerInput();
     GetRandomWord randomWord = new GetRandomWord();
@@ -24,11 +23,12 @@ public class StartGame {
         playerInput.wordDifficulty("\nChoose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': "); // hard
 
         // get random word based on difficulty chosen
-//      System.out.println(randomWord.pickRandomWord(playerInput.getDifficulty()).getRandomWord());
         String chosenWord = randomWord.pickRandomWord(playerInput.getDifficulty()).getRandomWord();
 
-        // show hidden word
-        System.out.print("Hidden word: ");
-        word.displayHiddenWord(chosenWord);
+        // start game loop
+        GameManager gameManager = new GameManager(player1, player2, chosenWord);
+        gameManager.playGame();
+
+
     }
 }
