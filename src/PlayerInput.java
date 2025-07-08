@@ -110,8 +110,6 @@ public class PlayerInput {
             }
             break;
         }
-
-        System.out.println(difficulty);
     }
 
     // GETTER

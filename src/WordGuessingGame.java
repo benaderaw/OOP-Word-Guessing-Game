@@ -6,7 +6,6 @@ public class WordGuessingGame {
 
         StartGame startGame = new StartGame();
 
-
         startGame.start();
     }
 }
