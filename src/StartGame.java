@@ -5,6 +5,7 @@ public class StartGame {
     private String currentPlayer;
 
     PlayerInput playerInput = new PlayerInput();
+    GetRandomWord randomWord = new GetRandomWord();
 
     public void start(){
         System.out.println("Welcome to the Word Guessing Game!");
@@ -15,8 +16,14 @@ public class StartGame {
         player1.setName(playerInput.playerName("Player 1 name: "));
         player2.setName(playerInput.playerName("Player 2 name: "));
 
-
+        // Welcome message
         System.out.printf("Welcome %s and %s, lets start the fun!", player1.getName(), player2.getName());
+
+        // player choose difficulty
+        playerInput.wordDifficulty("\nChoose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': "); // hard
+
+        // get random word based on difficulty chosen
+        System.out.println(randomWord.pickRandomWord(playerInput.getDifficulty()).getRandomWord());
 
     }
 }

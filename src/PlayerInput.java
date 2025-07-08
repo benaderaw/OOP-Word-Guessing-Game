@@ -86,25 +86,32 @@ public class PlayerInput {
     }
 
     // difficulty input and validation
-    public String wordDifficulty(String prompt){
+    public void wordDifficulty(String prompt){
         while (true){
             System.out.print(prompt);
             playerInput = scanner.nextLine().toLowerCase().trim();
 
-            switch (playerInput){
+            switch (playerInput) {
                 case "easy":
-                    difficulty = playerInput;
-                    return playerInput;
+                case "e":
+                    difficulty = "easy";
+                    break;
                 case "medium":
-                    difficulty = playerInput;
-                    return playerInput;
+                case "m":
+                    difficulty = "medium";
+                    break;
                 case "hard":
-                    difficulty = playerInput;
-                    return playerInput;
+                case "h":
+                    difficulty = "hard";
+                    break;
                 default:
                     System.out.println("🔶Please choose difficulty...");
+                    continue;
             }
+            break;
         }
+
+        System.out.println(difficulty);
     }
 
     // GETTER
