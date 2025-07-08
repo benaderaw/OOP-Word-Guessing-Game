@@ -2,10 +2,14 @@ import java.util.Scanner;
 
 public class PlayerInput {
     private String playerInput;
+    private String difficulty;
     private Scanner scanner = new Scanner(System.in);
+
+
 
     public PlayerInput(){
         this.playerInput = "";
+        this.difficulty = "easy";
     }
 
     // player name input and validation
@@ -79,5 +83,32 @@ public class PlayerInput {
         }
 
         return playerInput;
+    }
+
+    // difficulty input and validation
+    public String wordDifficulty(String prompt){
+        while (true){
+            System.out.print(prompt);
+            playerInput = scanner.nextLine().toLowerCase().trim();
+
+            switch (playerInput){
+                case "easy":
+                    difficulty = playerInput;
+                    return playerInput;
+                case "medium":
+                    difficulty = playerInput;
+                    return playerInput;
+                case "hard":
+                    difficulty = playerInput;
+                    return playerInput;
+                default:
+                    System.out.println("🔶Please choose difficulty...");
+            }
+        }
+    }
+
+    // GETTER
+    public String getDifficulty(){
+        return difficulty;
     }
 }
