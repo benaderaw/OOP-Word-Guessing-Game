@@ -64,4 +64,20 @@ public class PlayerInput {
 
         return playerGuessInput;
     }
+
+    // solve word input and validation
+    public String solveWord(String prompt){
+        while (true){
+            System.out.print(prompt);
+            playerInput = scanner.nextLine().toLowerCase().trim();
+
+            if(playerInput.isEmpty()){
+                System.out.print("🔶Please solve the word...");
+                continue;
+            }
+            break;
+        }
+
+        return playerInput;
+    }
 }
