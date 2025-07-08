@@ -15,7 +15,7 @@ public class PlayerScore {
     }
 
     public int bonusScore(int wordlength){
-        return score += score + (wordlength * 10);
+        return score += (wordlength * 10);
     }
 
     // GETTER and SETTER

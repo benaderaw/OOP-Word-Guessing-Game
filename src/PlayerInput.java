@@ -1,12 +1,15 @@
 import java.util.Scanner;
 
 public class PlayerInput {
+    private String playerInput;
     private Scanner scanner = new Scanner(System.in);
+
+    public PlayerInput(){
+        this.playerInput = "";
+    }
 
     // player name input and validation
     public String playerName(String prompt){
-        String playerInput;
-
         while (true){
             System.out.print(prompt);
             playerInput = scanner.nextLine().trim();
@@ -23,8 +26,6 @@ public class PlayerInput {
 
     // guess or solve input and validation
     public String guessOrSolve(String prompt){
-        String playerInput;
-
         while (true){
             System.out.print(prompt);
             playerInput = scanner.nextLine().trim();
@@ -42,5 +43,25 @@ public class PlayerInput {
         }
 
         return playerInput;
+    }
+
+    // letter guess input and validation
+    public char guessedLetter(String prompt){
+        char playerGuessInput;
+
+        while (true){
+            System.out.print(prompt);
+            playerInput = scanner.next().trim().toLowerCase();
+
+            if(playerInput.isEmpty()){
+                System.out.print("🔶Please enter a letter...");
+                continue;
+            }else{
+                playerGuessInput = playerInput.charAt(0);
+                break;
+            }
+        }
+
+        return playerGuessInput;
     }
 }
