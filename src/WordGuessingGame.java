@@ -1,9 +1,9 @@
 public class WordGuessingGame {
     public static void main(String[] args){
-        System.out.println("OOP Practice - Word Guessing Game");
+        System.out.println("OOP Practice - Word Guessing Game\n");
 
-        Player player = new Player("Player 1");
+        StartGame startGame = new StartGame();
 
-        System.out.println(player.getName());
+        startGame.start();
     }
 }

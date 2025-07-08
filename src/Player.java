@@ -2,12 +2,14 @@ public class Player {
     private String name;
     private int hintAmount;
     private PlayerScore playerScore;
+    private String playerResponse;
 
 
     public Player(String name){
         this.name = name;
         this.hintAmount = 1;
         this.playerScore = new PlayerScore();
+        this.playerResponse = "";
     }
 
     // GETTER
@@ -25,6 +27,10 @@ public class Player {
 
     public void setHintAmount(int hintAmount){
         this.hintAmount = hintAmount;
+    }
+
+    public String getPlayerResponse(){
+        return playerResponse;
     }
 
     public int getScore(){
