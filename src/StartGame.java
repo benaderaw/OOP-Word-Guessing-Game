@@ -17,7 +17,7 @@ public class StartGame {
         player2.setName(playerInput.playerName("Player 2 name: "));
 
         // Welcome message
-        System.out.printf("Welcome %s and %s, lets start the fun!", player1.getName(), player2.getName());
+        System.out.printf("\n🤖Welcome %s and %s, lets start the fun!", player1.getName(), player2.getName());
 
         // player choose difficulty
         playerInput.wordDifficulty();

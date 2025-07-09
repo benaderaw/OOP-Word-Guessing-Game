@@ -61,7 +61,7 @@ public class PlayerInput {
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please enter a letter...");
             }else if(Arrays.toString(dashes).contains(playerInput)){
-                System.out.println("🔶letter has been already revealed, please guess another letter...");
+                System.out.println("🔶'" + playerInput.charAt(0) + "' " + "has been already revealed, please guess another letter...");
             } else{
                 playerGuessInput = playerInput.charAt(0);
                 break;
@@ -90,7 +90,7 @@ public class PlayerInput {
     // difficulty input and validation
     public void wordDifficulty(){
         while (true){
-            System.out.print("\nChoose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': ");
+            System.out.print("\n🤖Choose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': ");
             playerInput = scanner.nextLine().toLowerCase().trim();
 
             switch (playerInput) {

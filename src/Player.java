@@ -59,4 +59,8 @@ public class Player {
         return playerScore.addBonusScore(word);
     }
 
+    public int addBonusScoreForLetterSolve(String word){
+        return playerScore.addBonusScoreForLetterSolve(word);
+    }
+
 }

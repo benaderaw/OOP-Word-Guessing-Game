@@ -23,7 +23,7 @@ public class GameManager {
     public void playGame(){
         // display word as hidden
         System.out.print(chosenWord);
-        System.out.print("\nHidden word: ");
+        System.out.print("\n\nHidden word: ");
         word.displayHiddenWord(chosenWord);
 
         // current player
@@ -38,7 +38,7 @@ public class GameManager {
 
             // check if letter is in the chosen word
             if (!chosenWord.contains(String.valueOf(guessedLetter))) {
-                System.out.println("\n" + guessedLetter + " was not found in the hidden word, better luck next time...");
+                System.out.println("\nSorry " + currentPlayer.getName()+ ", '" + guessedLetter + "' was not found in the hidden word, better luck next time...");
                 switchPlayer();
             }else{
                 // get points
@@ -51,6 +51,13 @@ public class GameManager {
                 // reveal letter in hidden word
                 System.out.print("\nHidden word: ");
                 word.revealGuessedLetter(guessedLetter);
+
+                // check if solved
+                if(new String(word.getDashes()).equalsIgnoreCase(chosenWord)){
+                    currentPlayer.addBonusScoreForLetterSolve(chosenWord);
+                    word.solved();
+                    break;
+                }
 
                 // solve word or guess more letters
                 String guessOrSolve = input.guessOrSolve();

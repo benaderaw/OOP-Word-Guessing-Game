@@ -64,10 +64,10 @@ public class Word {
     // solve the word
     public void solveWord(String input, Player player ){
         if(input.equals(chosenWord)){
-            System.out.println("🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
+            System.out.println("\n🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
             player.setIsSolved(true);
         }else{
-            System.out.println("I'm sorry " + input + " is not the correct word.");
+            System.out.println("🤖I'm sorry " + input + " is not the correct word.");
         }
     }
 
@@ -78,6 +78,12 @@ public class Word {
 
     public char[] getDashes(){
         return dashes;
+    }
+
+    // word solved
+    public void solved(){
+        System.out.println("\n\n🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
+        System.out.println("🤖Congrats! you have guessed all the letters and solved the hidden word");
     }
 
 
