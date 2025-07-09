@@ -76,5 +76,9 @@ public class Word {
         return wordCharArray;
     }
 
+    public char[] getDashes(){
+        return dashes;
+    }
+
 
 }

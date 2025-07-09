@@ -11,11 +11,11 @@ public class PlayerScore {
     }
 
     public int subtractScore(){
-        return score -= 10;
+        return score -= 20;
     }
 
-    public int bonusScore(int wordlength){
-        return score += (wordlength * 10);
+    public int addBonusScore(String word){
+        return score += (word.length() * 10);
     }
 
     // GETTER and SETTER

@@ -47,4 +47,16 @@ public class Player {
         this.isSolved = isSolved;
     }
 
+    public int addScore(){
+        return playerScore.addScore();
+    }
+
+    public int subtractScore(){
+        return playerScore.subtractScore();
+    }
+
+    public int addBonusScore(String word){
+        return playerScore.addBonusScore(word);
+    }
+
 }

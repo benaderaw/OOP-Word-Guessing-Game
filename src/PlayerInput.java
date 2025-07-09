@@ -51,7 +51,7 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public char guessLetter(char[] wordCharArray){
+    public char guessLetter(char[] dashes){
         char playerGuessInput;
 
         while (true){
@@ -60,7 +60,7 @@ public class PlayerInput {
 
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please enter a letter...");
-            }else if(Arrays.toString(wordCharArray).contains(playerInput)){
+            }else if(Arrays.toString(dashes).contains(playerInput)){
                 System.out.println("🔶letter has been already revealed, please guess another letter...");
             } else{
                 playerGuessInput = playerInput.charAt(0);
