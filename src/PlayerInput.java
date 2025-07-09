@@ -50,16 +50,15 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public char guessedLetter(String prompt){
+    public char guessLetter(String prompt){
         char playerGuessInput;
 
         while (true){
             System.out.print(prompt);
-            playerInput = scanner.next().trim().toLowerCase();
+            playerInput = scanner.nextLine().trim().toLowerCase();
 
             if(playerInput.isEmpty()){
-                System.out.print("🔶Please enter a letter...");
-                continue;
+                System.out.println("🔶Please enter a letter...");
             }else{
                 playerGuessInput = playerInput.charAt(0);
                 break;
