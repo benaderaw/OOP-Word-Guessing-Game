@@ -72,7 +72,7 @@ public class PlayerInput {
     }
 
     // solve word input and validation
-    public String solveWord(){
+    public String solveWordInput(){
         while (true){
             System.out.print("🤖Solve guess: ");
             playerInput = scanner.nextLine().toLowerCase().trim();

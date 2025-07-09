@@ -33,8 +33,21 @@ public class GameManager {
             // player
             System.out.println("\n=== " + currentPlayer.getName() + " ====");
 
-            // player 1 guess prompt and validation
-            char guessedLetter = input.guessLetter(word.getDashes());
+            
+            char guessedLetter;
+            if(currentPlayer.getHasGuessed()){
+                // current player guess prompt and validation
+                String guessOrSolver = input.guessOrSolve();
+                checkSolveWordGuess(guessOrSolver);
+
+                if(currentPlayer.getIsSolved()){
+                    break;
+                }
+            }
+
+            // if it is players first turn, player must guess
+            guessedLetter = input.guessLetter(word.getHiddenWordArray());
+            currentPlayer.setHasGuessed(true);
 
             // check if letter is in the chosen word
             if (!chosenWord.contains(String.valueOf(guessedLetter))) {
@@ -53,32 +66,10 @@ public class GameManager {
                 word.revealGuessedLetter(guessedLetter);
 
                 // check if solved
-                if(new String(word.getDashes()).equalsIgnoreCase(chosenWord)){
+                if(new String(word.getHiddenWordArray()).equalsIgnoreCase(chosenWord)){
                     currentPlayer.addBonusScoreForLetterSolve(chosenWord);
                     word.solved();
                     break;
-                }
-
-                // solve word or guess more letters
-                String guessOrSolve = input.guessOrSolve();
-
-                // if solve check correctness
-                if(guessOrSolve.equals("solve")){
-                    String solveGuessWord = input.solveWord();
-                    word.solveWord(solveGuessWord, currentPlayer);
-
-                    // solved, game over, exit loop
-                    if(currentPlayer.getIsSolved()){
-                        // add bonus score
-                        currentPlayer.addBonusScore(chosenWord);
-                        break;
-                    }
-
-                    // subtract score
-                    currentPlayer.subtractScore();
-
-                    // not solved, switch player
-                    switchPlayer();
                 }
             }
         }
@@ -89,4 +80,23 @@ public class GameManager {
         currentPlayer = currentPlayer == player1 ? player2 : player1;
     }
 
+    private void checkSolveWordGuess(String guessOrSolve){
+        if(guessOrSolve.equals("solve")){
+            String solveGuessWord = input.solveWordInput();
+            word.solveWord(solveGuessWord, currentPlayer, word);
+
+            // solved, game over, exit loop
+            if(currentPlayer.getIsSolved()){
+                // add bonus score
+                currentPlayer.addBonusScore(chosenWord);
+            }else{
+                // subtract score
+                currentPlayer.subtractScore();
+
+                // not solved, switch player
+                switchPlayer();
+            }
+        }
+
+    }
 }

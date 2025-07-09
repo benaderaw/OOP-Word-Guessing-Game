@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Word {
     private String chosenWord;
     private char[] wordCharArray;
-    private char[] dashes;
+    private char[] hiddenWordArray;
 
     // CONSTRUCTOR
     public Word(){
@@ -40,11 +40,11 @@ public class Word {
     public void revealGuessedLetter(char guessedLetter){
         for(int i = 0; i < wordCharArray.length; i++){
             if(wordCharArray[i] == guessedLetter){
-                dashes[i] = guessedLetter;
+                hiddenWordArray[i] = guessedLetter;
             }
         }
 
-        for (char dash : dashes) {
+        for (char dash : hiddenWordArray) {
             System.out.print(dash + " ");
         }
     }
@@ -53,21 +53,24 @@ public class Word {
     public void displayHiddenWord(String chosenWord){
         getChosenWord(chosenWord);
 
-        dashes = new char[chosenWord.length()];
-        Arrays.fill(dashes, '_');
+        hiddenWordArray = new char[chosenWord.length()];
+        Arrays.fill(hiddenWordArray, '_');
 
-        for (char dash : dashes) {
+        for (char dash : hiddenWordArray) {
             System.out.print(dash + " ");
         }
     }
 
     // solve the word
-    public void solveWord(String input, Player player ){
+    public void solveWord(String input, Player player, Word word ){
         if(input.equals(chosenWord)){
             System.out.println("\n🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
             player.setIsSolved(true);
         }else{
-            System.out.println("🤖I'm sorry " + input + " is not the correct word.");
+            System.out.println("🤖I'm sorry '" + input + "' is not the correct word.");
+            System.out.print("\nHidden word: ");
+            word.displayHiddenWord(chosenWord);
+            System.out.print("\n");
         }
     }
 
@@ -76,8 +79,8 @@ public class Word {
         return wordCharArray;
     }
 
-    public char[] getDashes(){
-        return dashes;
+    public char[] getHiddenWordArray(){
+        return hiddenWordArray;
     }
 
     // word solved

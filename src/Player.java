@@ -4,6 +4,7 @@ public class Player {
     private PlayerScore playerScore;
     private String playerResponse;
     private boolean isSolved;
+    private boolean hasGuessed;
 
 
     public Player(String name){
@@ -61,6 +62,14 @@ public class Player {
 
     public int addBonusScoreForLetterSolve(String word){
         return playerScore.addBonusScoreForLetterSolve(word);
+    }
+
+    public boolean getHasGuessed(){
+        return hasGuessed;
+    }
+
+    public void setHasGuessed(boolean hasGuessed){
+        this.hasGuessed  = hasGuessed;
     }
 
 }
