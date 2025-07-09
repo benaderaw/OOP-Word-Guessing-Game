@@ -33,7 +33,7 @@ public class GameManager {
             System.out.println("\n=== " + currentPlayer.getName() + " ====");
 
             // player 1 guess prompt and validation
-            char guessedLetter = input.guessLetter("Guess the letter: ");
+            char guessedLetter = input.guessLetter();
 
             // check if letter is in the chosen word
             if (!chosenWord.contains(String.valueOf(guessedLetter))) {
@@ -47,7 +47,18 @@ public class GameManager {
                 // reveal letter in hidden word
                 System.out.print("\nHidden word: ");
                 word.revealGuessedLetter(guessedLetter);
+                String guessOrSolve = input.guessOrSolve();
 
+                if(guessOrSolve.equals("solve")){
+                    String solveGuessWord = input.solveWord();
+                    word.solveWord(solveGuessWord, currentPlayer);
+
+                    if(currentPlayer.getIsSolved()){
+                        break;
+                    }
+
+                    switchPlayer();
+                }
             }
         }
     }

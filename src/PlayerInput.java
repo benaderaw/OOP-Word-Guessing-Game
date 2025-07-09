@@ -29,9 +29,9 @@ public class PlayerInput {
     }
 
     // guess or solve input and validation
-    public String guessOrSolve(String prompt){
+    public String guessOrSolve(){
         while (true){
-            System.out.print(prompt);
+            System.out.print("Would you like to guess another letter or solve the word: ");
             playerInput = scanner.nextLine().trim();
 
             switch (playerInput.toLowerCase().trim()){
@@ -50,11 +50,11 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public char guessLetter(String prompt){
+    public char guessLetter(){
         char playerGuessInput;
 
         while (true){
-            System.out.print(prompt);
+            System.out.print("Guess the letter: ");
             playerInput = scanner.nextLine().trim().toLowerCase();
 
             if(playerInput.isEmpty()){
@@ -69,9 +69,9 @@ public class PlayerInput {
     }
 
     // solve word input and validation
-    public String solveWord(String prompt){
+    public String solveWord(){
         while (true){
-            System.out.print(prompt);
+            System.out.print("Solve guess: ");
             playerInput = scanner.nextLine().toLowerCase().trim();
 
             if(playerInput.isEmpty()){
@@ -85,9 +85,9 @@ public class PlayerInput {
     }
 
     // difficulty input and validation
-    public void wordDifficulty(String prompt){
+    public void wordDifficulty(){
         while (true){
-            System.out.print(prompt);
+            System.out.print("\nChoose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': ");
             playerInput = scanner.nextLine().toLowerCase().trim();
 
             switch (playerInput) {

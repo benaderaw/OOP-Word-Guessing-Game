@@ -49,7 +49,6 @@ public class Word {
         }
     }
 
-
     // hide and display word
     public void displayHiddenWord(String chosenWord){
         getChosenWord(chosenWord);
@@ -59,6 +58,16 @@ public class Word {
 
         for (char dash : dashes) {
             System.out.print(dash + " ");
+        }
+    }
+
+    // solve the word
+    public void solveWord(String input, Player player ){
+        if(input.equals(chosenWord)){
+            System.out.println("🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
+            player.setIsSolved(true);
+        }else{
+            System.out.println("I'm sorry " + input + " is not the correct word.");
         }
     }
 

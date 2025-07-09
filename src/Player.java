@@ -3,6 +3,7 @@ public class Player {
     private int hintAmount;
     private PlayerScore playerScore;
     private String playerResponse;
+    private boolean isSolved;
 
 
     public Player(String name){
@@ -10,6 +11,7 @@ public class Player {
         this.hintAmount = 1;
         this.playerScore = new PlayerScore();
         this.playerResponse = "";
+        this.isSolved= false;
     }
 
     // GETTER
@@ -35,6 +37,14 @@ public class Player {
 
     public int getScore(){
         return playerScore.getScore();
+    }
+
+    public boolean getIsSolved(){
+        return isSolved;
+    }
+
+    public void setIsSolved(boolean isSolved){
+        this.isSolved = isSolved;
     }
 
 

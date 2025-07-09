@@ -20,7 +20,7 @@ public class StartGame {
         System.out.printf("Welcome %s and %s, lets start the fun!", player1.getName(), player2.getName());
 
         // player choose difficulty
-        playerInput.wordDifficulty("\nChoose word difficulty - 'easy or e' / 'medium or m' / 'hard or h': "); // hard
+        playerInput.wordDifficulty();
 
         // get random word based on difficulty chosen
         String chosenWord = randomWord.pickRandomWord(playerInput.getDifficulty()).getRandomWord();
