@@ -40,8 +40,14 @@ public class GameManager {
                 System.out.println("\n" + guessedLetter + " was not found in the hidden word, better luck next time...");
                 switchPlayer();
             }else{
-                System.out.println("\nNICE! " + guessedLetter + " was found in the hidden word...");
-                System.out.println("👍");
+                // show how many found
+                int numOfLettersFound = word.lettersFound(guessedLetter);
+                System.out.println("There are " + numOfLettersFound + " " + guessedLetter + " in the hidden word.");
+
+                // reveal letter in hidden word
+                System.out.print("\nHidden word: ");
+                word.revealGuessedLetter(guessedLetter);
+
             }
         }
     }
