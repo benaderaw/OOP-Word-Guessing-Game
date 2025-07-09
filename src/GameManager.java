@@ -33,14 +33,14 @@ public class GameManager {
             System.out.println("\n=== " + currentPlayer.getName() + " ====");
 
             // player 1 guess prompt and validation
-            char guessedLetter = input.guessLetter();
+            char guessedLetter = input.guessLetter(word.getWordCharArray());
 
             // check if letter is in the chosen word
             if (!chosenWord.contains(String.valueOf(guessedLetter))) {
                 System.out.println("\n" + guessedLetter + " was not found in the hidden word, better luck next time...");
                 switchPlayer();
             }else{
-                // show how many found
+                // show how many letters found
                 int numOfLettersFound = word.lettersFound(guessedLetter);
                 System.out.println("There are " + numOfLettersFound + " " + guessedLetter + " in the hidden word.");
 
@@ -49,14 +49,17 @@ public class GameManager {
                 word.revealGuessedLetter(guessedLetter);
                 String guessOrSolve = input.guessOrSolve();
 
+                // if solve check correctness
                 if(guessOrSolve.equals("solve")){
                     String solveGuessWord = input.solveWord();
                     word.solveWord(solveGuessWord, currentPlayer);
 
+                    // solved, game over, exit loop
                     if(currentPlayer.getIsSolved()){
                         break;
                     }
 
+                    // not solved, switch player
                     switchPlayer();
                 }
             }

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PlayerInput {
@@ -31,7 +32,7 @@ public class PlayerInput {
     // guess or solve input and validation
     public String guessOrSolve(){
         while (true){
-            System.out.print("Would you like to guess another letter or solve the word: ");
+            System.out.print("\n🤖Would you like to guess another letter or solve the word: ");
             playerInput = scanner.nextLine().trim();
 
             switch (playerInput.toLowerCase().trim()){
@@ -50,16 +51,18 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public char guessLetter(){
+    public char guessLetter(char[] wordCharArray){
         char playerGuessInput;
 
         while (true){
-            System.out.print("Guess the letter: ");
+            System.out.print("🤖Guess the letter: ");
             playerInput = scanner.nextLine().trim().toLowerCase();
 
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please enter a letter...");
-            }else{
+            }else if(Arrays.toString(wordCharArray).contains(playerInput)){
+                System.out.println("🔶letter has been already revealed, please guess another letter...");
+            } else{
                 playerGuessInput = playerInput.charAt(0);
                 break;
             }
@@ -71,7 +74,7 @@ public class PlayerInput {
     // solve word input and validation
     public String solveWord(){
         while (true){
-            System.out.print("Solve guess: ");
+            System.out.print("🤖Solve guess: ");
             playerInput = scanner.nextLine().toLowerCase().trim();
 
             if(playerInput.isEmpty()){

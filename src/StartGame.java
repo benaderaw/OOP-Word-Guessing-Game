@@ -8,12 +8,12 @@ public class StartGame {
     Word word =  new Word();
 
     public void start(){
-        System.out.println("Welcome to the Word Guessing Game!");
-        System.out.println("Before wqe get started please provide player names...");
-
+        System.out.println("🤖Welcome to the Word Guessing Game!");
+        System.out.println("🤖This is a word solving game where you go up against a another \nplayer to see who solves the secret word first.");
+        System.out.print("🤖Type 'start' or 's' to start game: ");
 
         // get players name
-        player1.setName(playerInput.playerName("Player 1 name: "));
+        player1.setName(playerInput.playerName("\n\nPlayer 1 name: "));
         player2.setName(playerInput.playerName("Player 2 name: "));
 
         // Welcome message

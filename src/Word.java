@@ -71,4 +71,10 @@ public class Word {
         }
     }
 
+    // GETTER and SETTER
+    public char[] getWordCharArray(){
+        return wordCharArray;
+    }
+
+
 }
