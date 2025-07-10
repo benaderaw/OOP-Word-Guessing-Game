@@ -48,8 +48,8 @@ public class Player {
         this.isSolved = isSolved;
     }
 
-    public int addScore(){
-        return playerScore.addScore();
+    public int addScore(int numOfLettersFound){
+        return playerScore.addScore(numOfLettersFound);
     }
 
     public int subtractScore(){

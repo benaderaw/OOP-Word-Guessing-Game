@@ -7,8 +7,8 @@ public class PlayerScore {
 
     // METHODS
     // per correct letter
-    public int addScore(){
-        return score += 10;
+    public int addScore(int numOfLettersFound){
+        return score += numOfLettersFound * 10;
     }
 
     // if solve word guess is wrong

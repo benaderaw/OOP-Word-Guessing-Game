@@ -55,7 +55,7 @@ public class PlayerInput {
         char playerGuessInput;
 
         while (true){
-            System.out.print("🤖Guess the letter: ");
+            System.out.print("\n🤖Guess a letter: ");
             playerInput = scanner.nextLine().trim().toLowerCase();
 
             if(playerInput.isEmpty()){
