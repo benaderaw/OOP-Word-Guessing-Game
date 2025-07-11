@@ -20,22 +20,6 @@ public class Player {
         return name;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public int getHintAmount(){
-        return hintAmount;
-    }
-
-    public void setHintAmount(int hintAmount){
-        this.hintAmount = hintAmount;
-    }
-
-    public String getPlayerResponse(){
-        return playerResponse;
-    }
-
     public int getScore(){
         return playerScore.getScore();
     }
@@ -52,12 +36,12 @@ public class Player {
         return playerScore.addScore(numOfLettersFound);
     }
 
-    public int subtractScore(){
-        return playerScore.subtractScore();
+    public int subtractScore(int lettersLeft){
+        return playerScore.subtractScore(lettersLeft);
     }
 
-    public int addBonusScore(String word){
-        return playerScore.addBonusScore(word);
+    public int addBonusScore(int lettersLeft){
+        return playerScore.addBonusScore(lettersLeft);
     }
 
     public int addBonusScoreForLetterSolve(String word){
@@ -70,6 +54,10 @@ public class Player {
 
     public void setHasGuessed(boolean hasGuessed){
         this.hasGuessed  = hasGuessed;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
 }

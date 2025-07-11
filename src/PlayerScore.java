@@ -12,13 +12,13 @@ public class PlayerScore {
     }
 
     // if solve word guess is wrong
-    public int subtractScore(){
-        return score -= 20;
+    public int subtractScore(int lettersLeft){
+        return score -= lettersLeft * 5;
     }
 
     // if solve guess is right
-    public int addBonusScore(String word){
-        return score += (word.length() * 10);
+    public int addBonusScore(int lettersLeft){
+        return score += lettersLeft * 10;
     }
 
     // if hidden word is solved by guessing letters
@@ -31,7 +31,4 @@ public class PlayerScore {
         return score;
     }
 
-    public void setScore(int score){
-        this.score = score;
-    }
 }

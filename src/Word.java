@@ -28,11 +28,18 @@ public class Word {
     }
 
     // reveal letter from hidden word
-    public void revealGuessedLetter(char guessedLetter){
+    public void checkGuessedLetter(char guessedLetter){
         for(int i = 0; i < wordCharArray.length; i++){
             if(wordCharArray[i] == guessedLetter){
                 hiddenWordArray[i] = guessedLetter;
             }
+        }
+    }
+
+    // reveal letter from hidden word
+    public void revealGuessedWord(){
+        for(int i = 0; i < wordCharArray.length; i++){
+            hiddenWordArray[i] = wordCharArray[i];
         }
 
         for (char dash : hiddenWordArray) {
@@ -40,6 +47,11 @@ public class Word {
         }
     }
 
+    public void displayHidden(){
+        for (char dash : hiddenWordArray) {
+            System.out.print(dash + " ");
+        }
+    }
 
     // get hidden word array
     public char[] getHiddenWordArray(){
@@ -47,27 +59,29 @@ public class Word {
     }
 
     // solve the word
-    public void solveWord(String input, Player player, Word word ){
+    public boolean checkGuessedWord(String input, String chosenWord ){
         if(input.equals(chosenWord)){
-            System.out.println("\n🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
-            player.setIsSolved(true);
+            return true;
         }else{
-            System.out.println("🤖I'm sorry '" + input + "' is not the correct word.");
-            System.out.print("\n[ Hidden word: ");
-//            word.displayHiddenWord(chosenWord + "]");
-            System.out.print("\n");
+            System.out.println("❌I'm sorry, '" + input + "' is not the correct word.");
         }
+
+        return false;
+    }
+
+
+    public int lettersLeft(){
+        int num = 0;
+
+        for(char dash: hiddenWordArray){
+            if(dash == '_'){
+                num += 1;
+            }
+        }
+        return num;
     }
 
     // GETTER and SETTER
-    public char[] getWordCharArray(){
-        return wordCharArray;
-    }
 
 
-    // word solved
-    public void solved(){
-        System.out.println("\n\n🎉🎉🎉🎉 YOU WON  🎉🎉🎉🎉");
-        System.out.println("🤖Congrats! you have guessed all the letters and solved the hidden word");
-    }
 }

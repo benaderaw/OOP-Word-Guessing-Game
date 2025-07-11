@@ -8,7 +8,7 @@ public class GameManager {
     private String chosenWord;
     private PlayerInput input;
     private Word word;
-    char guessedLetter;
+    String guessLetterInput;
 
     // CONSTRUCTOR
     public GameManager(Player player1, Player player2, String chosenWord, Word word){
@@ -17,100 +17,174 @@ public class GameManager {
         this.chosenWord = chosenWord;
         this.currentPlayer = player1;
         this.input = new PlayerInput();
-        guessedLetter = '*';
+        guessLetterInput = "*";
         this.word = word;
     }
-
 
     // METHODS
     public void playGame(){
         // display word as hidden
-        System.out.print(chosenWord);
+        System.out.print("\n");
+        System.out.println(chosenWord);
 
         // current player
         currentPlayer = player1;
+        System.out.println("========================  " + "🔷" + currentPlayer.getName() + "  ========================");
+
 
         while (true) {
             // if it's NOT players first turn
             if(currentPlayer.getHasGuessed()){
-                // prompt to solve word or guess letter
-                String guessOrSolver = input.guessOrSolve();
-                // check is solve word guess is correct
-                checkSolveWordGuess(guessOrSolver);
+                // display player turn and hidden word
+                displayPlayerTurn();
+                displayHiddenWord();
 
-                if(currentPlayer.getIsSolved()){
-                    break;
+                // prompt to solve word or guess letter
+                guessLetterInput = input.guessLetterInput(word.getHiddenWordArray(), currentPlayer.getHasGuessed());
+                word.checkGuessedLetter(guessLetterInput.charAt(0));
+
+                if(guessLetterInput.equals("solve")){
+                    // check is solve word guess is correct
+                    checkSolveWordGuess(guessLetterInput);
+
+                    if(currentPlayer.getIsSolved()){
+                        break;
+                    }
+
+                    switchPlayer();
+                    continue;
                 }
+            }else{
+                // display player turn and hidden word
+                displayPlayerTurn();
+                displayHiddenWord();
+
+                // if it's players first turn, player must guess
+                guessLetterInput = input.guessLetterInput(word.getHiddenWordArray(), currentPlayer.getHasGuessed());
+                currentPlayer.setHasGuessed(true);
             }
 
-            // player turn and score display
-            System.out.printf("\n\n🎲Turn: %s \t\t ",currentPlayer.getName());
-
-            // hidden word display
-            System.out.print("🔎Hidden word: ");
-            word.revealGuessedLetter(guessedLetter);
-
-            // if it's players first turn, player must guess
-            guessedLetter = input.guessLetter(word.getHiddenWordArray());
-            currentPlayer.setHasGuessed(true);
-
             // check if letter is in the chosen word
-            if (!chosenWord.contains(String.valueOf(guessedLetter))) {
-                System.out.println("❌Sorry " + currentPlayer.getName()+ ", '" + guessedLetter + "' was not found in the hidden word, better luck next time...");
+            if (!chosenWord.contains(guessLetterInput)) {
+                System.out.println("❌Sorry " + currentPlayer.getName()+ ", '" + guessLetterInput + "' was not found in the hidden word, better luck next time...");
                 switchPlayer();
             }else{
                 // show how many letters found
-                int numOfLettersFound = word.lettersFound(guessedLetter);
+                int numOfLettersFound = word.lettersFound(guessLetterInput.charAt(0));
 
                 // get points
                 currentPlayer.addScore(numOfLettersFound);
 
-                // check plural or singular letters found for console output
-                String isOrAre = numOfLettersFound > 1 ? "are" : "is";
-                String pluralOrSingular = numOfLettersFound > 1 ? "'s" : "'";
-
-                // display how many letters were found
-                System.out.print("✅There " + isOrAre + " " + numOfLettersFound + " '" + guessedLetter +  pluralOrSingular + " in the hidden word: ");
+                // display letters found
+                displayLettersFoundMessage(numOfLettersFound);
 
                 // update and display the hidden word with found letter/s
-                word.revealGuessedLetter(guessedLetter);
-
-                // display score
-                System.out.println("\n✨+" +  numOfLettersFound * 10 + " points");
-                System.out.printf("🔷%s: %d\n♦️%s: %d",player1.getName(), player1.getScore(), player2.getName(), player2.getScore());
-
+                word.checkGuessedLetter(guessLetterInput.charAt(0));
+                displayHiddenWord();
+                
                 // check if player found all the letters in the word
-                if(new String(word.getHiddenWordArray()).equalsIgnoreCase(chosenWord)){
+                if(new String(word.getHiddenWordArray()).equals(chosenWord)){
+                    //
                     currentPlayer.addBonusScoreForLetterSolve(chosenWord);
-                    word.solved();
+
+                    // display score
+                    System.out.println("✨+" + numOfLettersFound * 10 + " points plus +" + chosenWord.length() * 5 + " bonus points!");
+                    displayScore();
+
+                    // display winner
+                    System.out.println("\n🎉🎉🎉" + currentPlayer.getName() + " has WON!!! 🎉🎉🎉");
+
+                    // set current players isSolved property to true
+                    currentPlayer.setIsSolved(true);
                     break;
                 }
+
+                // display score
+                System.out.println("✨+" +  numOfLettersFound * 10 + " points");
+                displayScore();
             }
         }
     }
+
 
     // switch player
     private void switchPlayer(){
         currentPlayer = currentPlayer == player1 ? player2 : player1;
+        System.out.print("\n");
+
+        String playerColor = currentPlayer == player1 ? "🔷" : "♦️";
+
+        System.out.println("========================  " + playerColor + currentPlayer.getName() + "  ========================  ");
     }
 
-    private void checkSolveWordGuess(String guessOrSolve){
-        if(guessOrSolve.equals("solve")){
-            String solveGuessWord = input.solveWordInput();
-            word.solveWord(solveGuessWord, currentPlayer, word);
+    private void checkSolveWordGuess(String guessLetterInput){
 
-            // solved, game over, exit loop
-            if(currentPlayer.getIsSolved()){
-                // add bonus score
-                currentPlayer.addBonusScore(chosenWord);
-            }else{
-                // subtract score
-                currentPlayer.subtractScore();
+        String solveGuessedWord = input.solveWordInput();
+        boolean isSolved = word.checkGuessedWord(solveGuessedWord, chosenWord);
 
-                // not solved, switch player
-                switchPlayer();
-            }
+        // solved, game over, exit loop
+        if(isSolved){
+            // get the remaining hidden letters left
+            int lettersLeft = word.lettersLeft();
+
+            // add bonus score - lettersLeft * 10
+            currentPlayer.addBonusScore(lettersLeft);
+
+            //
+            System.out.println("✅You did it! '" + solveGuessedWord + "' is the hidden word!");
+
+
+            // update and display the hidden word with found letter/s
+            System.out.print("🔎Hidden word: ");
+            word.revealGuessedWord();
+
+            // display score
+            System.out.println("\n✨+" + lettersLeft * 10 + " bonus points!");
+            displayScore();
+
+            // display winner
+            System.out.println("\n🎉🎉🎉" + currentPlayer.getName() + " has WON!!! 🎉🎉🎉");
+
+            // set current players isSolved property to true
+            currentPlayer.setIsSolved(true);
+
+        }else{
+            int lettersLeft = word.lettersLeft();
+            // subtract score
+            currentPlayer.subtractScore(lettersLeft);
+
+            // update and display the hidden word with found letter/s
+            System.out.print("🔎Hidden word: ");
+            word.checkGuessedLetter(guessLetterInput.charAt(0));
+
+            // display score
+            System.out.println("\n✨-" + lettersLeft * 5 + " points");
+            displayScore();
         }
 
+    }
+
+    // display player turn
+    private void displayPlayerTurn(){
+        System.out.printf("\n🎲Turn: %s \t\t ",currentPlayer.getName());
+    }
+
+    // display hidden word
+    private void displayHiddenWord(){
+        System.out.print("🔎Hidden word: ");
+        word.displayHidden();
+        System.out.print("\n");
+    }
+    
+    // display letters found message
+    private void displayLettersFoundMessage(int numOfLettersFound){
+        String isOrAre = numOfLettersFound > 1 ? "are" : "is";
+        String pluralOrSingular = numOfLettersFound > 1 ? "'s" : "'";
+        System.out.print("✅There " + isOrAre + " " + numOfLettersFound + " '" + guessLetterInput +  pluralOrSingular + " in the hidden word.\n");
+    }
+    
+    // display score
+    private void displayScore(){
+        System.out.printf("🔷%s: %d\n♦️%s: %d\n", player1.getName(), player1.getScore(), player2.getName(), player2.getScore());
     }
 }
