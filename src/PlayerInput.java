@@ -57,32 +57,39 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public String guessLetterInput(char[] hiddenWordArray, boolean hasGuessed){
-
+    public String promptGuessOrSolve(char[] hiddenWordArray){
         while (true){
-            if(hasGuessed){
-                System.out.print("🤖Keep guessing a letter, or type 'solve' to solve the word: ");
-                playerInput = scanner.nextLine().toLowerCase().trim();
-
-            }else {
-                System.out.print("🤖Guess a letter: ");
-                playerInput = scanner.nextLine().toLowerCase().trim();
-            }
+            System.out.print("🤖Keep guessing a letter, or type 'solve' to solve the word: ");
+            playerInput = scanner.nextLine().toLowerCase().trim();
 
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please guess a letter or solve word...");
-            }else if(Arrays.toString(hiddenWordArray).contains(String.valueOf(playerInput.charAt(0)))){
+            }else if(playerInput.equals("solve")){
+                return playerInput;
+            }else if(new String(hiddenWordArray).contains(String.valueOf(playerInput.charAt(0)))){
                 System.out.println("🔶'" + playerInput.charAt(0) + "' " + "has been already revealed, please guess another letter...");
             } else{
-                break;
+                return String.valueOf(playerInput.charAt(0));
             }
         }
+    }
 
-        return playerInput;
+    public String firstTurnGuess(){
+        while (true){
+            System.out.print("🤖Guess a letter: ");
+            playerInput = scanner.nextLine().toLowerCase().trim();
+
+            if (playerInput.isEmpty()) {
+                System.out.println("🔶Please guess a letter...");
+                continue;
+            }
+
+            return String.valueOf(playerInput.charAt(0));
+        }
     }
 
     // solve word input and validation
-    public String solveWordInput(){
+    public String promptSolveWord(){
         while (true){
             System.out.print("🤖Solve word guess: ");
             playerInput = scanner.nextLine().toLowerCase().trim();

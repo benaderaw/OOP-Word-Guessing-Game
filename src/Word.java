@@ -4,6 +4,7 @@ public class Word {
     private String chosenWord;
     private char[] wordCharArray;
     private char[] hiddenWordArray;
+    private boolean isSolved;
 
     // CONSTRUCTOR
     public Word(String chosenWord){
@@ -11,6 +12,7 @@ public class Word {
         this.wordCharArray = chosenWord.toCharArray();
         this.hiddenWordArray = new char[wordCharArray.length];
         Arrays.fill(hiddenWordArray, '_');
+        this.isSolved = false;
     }
 
     // METHODS
@@ -28,12 +30,17 @@ public class Word {
     }
 
     // reveal letter from hidden word
-    public void checkGuessedLetter(char guessedLetter){
-        for(int i = 0; i < wordCharArray.length; i++){
-            if(wordCharArray[i] == guessedLetter){
-                hiddenWordArray[i] = guessedLetter;
+    public void checkGuessedLetter(String guessedLetter){
+        char letter = guessedLetter.charAt(0);
+
+        if(chosenWord.contains(String.valueOf(letter))){
+            for(int i = 0; i < wordCharArray.length; i++){
+                if(wordCharArray[i] == letter){
+                    hiddenWordArray[i] = letter;
+                }
             }
         }
+
     }
 
     // reveal letter from hidden word
@@ -59,14 +66,12 @@ public class Word {
     }
 
     // solve the word
-    public boolean checkGuessedWord(String input, String chosenWord ){
+    public void processSolveWord(String input){
         if(input.equals(chosenWord)){
-            return true;
+             isSolved = true;
         }else{
             System.out.println("❌I'm sorry, '" + input + "' is not the correct word.");
         }
-
-        return false;
     }
 
 
@@ -82,6 +87,13 @@ public class Word {
     }
 
     // GETTER and SETTER
+    public boolean getIsSolved(){
+        return isSolved;
+    }
+
+    public void setSolved(boolean isSolved){
+        this.isSolved = isSolved;
+    }
 
 
 }

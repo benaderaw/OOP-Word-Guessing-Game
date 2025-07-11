@@ -12,8 +12,8 @@ public class StartGame {
 
         // get players name
 //        System.out.print("🤖Before we start lets get your names...\n\n");
-//        player1.setName(playerInput.playerName("🔷Player 1 name: "));
-//        player2.setName(playerInput.playerName("♦️Player 2 name: "));
+        player1.setName(playerInput.playerName("🔷Player 1 name: "));
+        player2.setName(playerInput.playerName("♦️Player 2 name: "));
 
         // Welcome message
         System.out.printf("🤖Welcome %s and %s, lets start the fun!", player1.getName(), player2.getName());
