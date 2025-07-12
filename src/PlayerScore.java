@@ -1,5 +1,5 @@
 public class PlayerScore {
-    public int score;
+    private int score;
 
     public PlayerScore(){
         this.score = 0;

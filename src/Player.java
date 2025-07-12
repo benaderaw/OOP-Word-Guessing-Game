@@ -3,8 +3,7 @@ public class Player {
     private int hintAmount;
     private PlayerScore playerScore;
     private String playerResponse;
-    private boolean isSolved;
-    private boolean hasGuessed;
+    private boolean guessed;
 
 
     public Player(String name){
@@ -12,7 +11,7 @@ public class Player {
         this.hintAmount = 1;
         this.playerScore = new PlayerScore();
         this.playerResponse = "";
-        this.isSolved= false;
+        this.guessed = false;
     }
 
     // GETTER
@@ -22,14 +21,6 @@ public class Player {
 
     public int getScore(){
         return playerScore.getScore();
-    }
-
-    public boolean getIsSolved(){
-        return isSolved;
-    }
-
-    public void setIsSolved(boolean isSolved){
-        this.isSolved = isSolved;
     }
 
     public int addScore(int numOfLettersFound){
@@ -48,12 +39,12 @@ public class Player {
         return playerScore.addBonusScoreForLetterSolve(word);
     }
 
-    public boolean getHasGuessed(){
-        return hasGuessed;
+    public boolean hasGuessed(){
+        return guessed;
     }
 
-    public void setHasGuessed(boolean hasGuessed){
-        this.hasGuessed  = hasGuessed;
+    public void setHasGuessed(boolean guessed){
+        this.guessed  = guessed;
     }
 
     public void setName(String name){
