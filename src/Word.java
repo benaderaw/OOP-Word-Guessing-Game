@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class Word {
-    private String pickedWord;
-    private char[] wordCharArray;
-    private char[] hiddenWordArray;
-    private boolean solved;
+    protected String pickedWord;
+    protected char[] wordCharArray;
+    protected char[] hiddenWordArray;
+    protected boolean solved;
 
 
     // CONSTRUCTOR

@@ -59,14 +59,16 @@ public class PlayerInput {
     // letter guess input and validation
     public String promptGuessOrSolve(char[] hiddenWordArray){
         while (true){
-            System.out.print("🤖Keep guessing a letter, or type 'solve' to solve the word: ");
+            System.out.print("🤖Guess a letter, or type 'solve' to solve the word or 'hint' to use a hint: ");
             playerInput = scanner.nextLine().toLowerCase().trim();
 
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please guess a letter or solve word...");
             }else if(playerInput.equals("solve")){
                 return playerInput;
-            }else if(new String(hiddenWordArray).contains(String.valueOf(playerInput.charAt(0)))){
+            }else if(playerInput.equals("hint")){
+                return playerInput;
+            } else if(new String(hiddenWordArray).contains(String.valueOf(playerInput.charAt(0)))){
                 System.out.println("🔶'" + playerInput.charAt(0) + "' " + "has been already revealed, please guess another letter...");
             } else{
                 return String.valueOf(playerInput.charAt(0));

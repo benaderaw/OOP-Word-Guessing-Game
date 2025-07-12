@@ -19,7 +19,7 @@ public class GameManager {
         this.pickedWord = pickedWord;
         this.currentPlayer = player1;
         this.input = new PlayerInput();
-        guessLetter = "*";
+        this.guessLetter = "*";
         this.word = word;
         this.guessedWord = "";
     }
@@ -30,11 +30,20 @@ public class GameManager {
         System.out.print("\n");
         System.out.println(pickedWord);
 
+        Hint hint = new Hint(pickedWord);
+
         // current player
         currentPlayer = player1;
         System.out.println("========================  " + "🔷" + currentPlayer.getName() + "  ========================");
 
         while (!word.isSolved()) {
+            int lettersLeft = hint.lettersLeft();
+            System.out.print(lettersLeft);
+
+            if(lettersLeft == 1){
+                hint.setDisableHint(true);
+            }
+
             // display player turn and hidden word
             displayPlayerTurn();
             displayHiddenWord();
@@ -46,7 +55,12 @@ public class GameManager {
                 // prompt to solve word or guess letter
                 promptGuessOrSolve();
 
-                if(guessLetter.equals("solve")){
+                if(guessLetter.equals("hint")){
+                    // TEST
+                    String ff = String.valueOf(hint.ccc());
+                    System.out.print("Hint word is: " + ff);
+                    System.out.print("\n");
+                }else if(guessLetter.equals("solve")){
                     checkSolveAttempt();
 
                     if(word.isSolved()) {
@@ -66,6 +80,10 @@ public class GameManager {
     }
 
     // SUPPORT METHODS
+    public void handleHint(){
+
+    }
+
     private void switchPlayer(){
         currentPlayer = currentPlayer == player1 ? player2 : player1;
         System.out.print("\n");
