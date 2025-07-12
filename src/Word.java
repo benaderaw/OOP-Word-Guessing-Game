@@ -44,17 +44,6 @@ public class Word {
 
     }
 
-    // reveal letter from hidden word
-    public void revealGuessedWord(){
-        for(int i = 0; i < wordCharArray.length; i++){
-            hiddenWordArray[i] = wordCharArray[i];
-        }
-
-        for (char dash : hiddenWordArray) {
-            System.out.print(dash + " ");
-        }
-    }
-
     public void displayHidden(){
         for (char dash : hiddenWordArray) {
             System.out.print(dash + " ");
@@ -70,6 +59,13 @@ public class Word {
     public void processSolveWord(String input){
         if(input.equals(pickedWord)){
              solved = true;
+        }
+    }
+
+    // reveal letter from hidden word
+    public void revealGuessedWord(){
+        for (char letter : wordCharArray) {
+            System.out.print(letter + " ");
         }
     }
 

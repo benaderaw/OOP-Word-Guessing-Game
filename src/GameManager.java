@@ -26,11 +26,8 @@ public class GameManager {
 
     // MAIN  METHODS
     public void playGame(){
-
         // display word as hidden
-        System.out.print("\n");
-        System.out.println(pickedWord);
-
+        System.out.println("\n" + pickedWord);
         Hint hint = new Hint(pickedWord);
 
         // current player
@@ -38,29 +35,27 @@ public class GameManager {
         System.out.println("========================  " + "🔷" + currentPlayer.getName() + "  ========================");
 
         while (!word.isSolved()) {
-            System.out.print("top: ");
-            System.out.println(word.hiddenWordArray);
-            int lettersLeft = hint.lettersLeft();
-            System.out.print(lettersLeft);
+            int lettersLeft = hint.hiddenLetterLeft(word.hiddenWordArray);
 
             if(lettersLeft == 1){
-                hint.setDisableHint(true);
+                hint.setHintDisabled(true);
             }
 
             // display player turn and hidden word
-            displayPlayerTurn();
-            displayHiddenWord();
+            displayTopBanner(currentPlayer.getNumOfHints(), hint.isHintDisabled());
 
             // if it's players first turn
             if(!currentPlayer.hasGuessed()){
                 promptFirstTurnGuess();
             }else{
                 // prompt to solve word or guess letter
-                promptGuessOrSolve();
+                promptGuessOrSolve(hint.isHintDisabled());
 
                 if(guessLetter.equals("hint")){
                     // TEST
                     guessLetter = String.valueOf(hint.ccc(word.hiddenWordArray));
+                    currentPlayer.setNumOfHints(currentPlayer.getNumOfHints() - 1);
+                    currentPlayer.setUsedHint(true);
                 }else if(guessLetter.equals("solve")){
                     checkSolveAttempt();
 
@@ -86,19 +81,32 @@ public class GameManager {
 
     private void switchPlayer(){
         currentPlayer = currentPlayer == player1 ? player2 : player1;
-        System.out.print("\n");
         String playerColor = currentPlayer == player1 ? "🔷" : "♦️";
         System.out.println("========================  " + playerColor + currentPlayer.getName() + "  ========================  ");
     }
     
     private void displayPlayerTurn(){
-        System.out.printf("🎲Turn: %s \t\t ",currentPlayer.getName());
+        System.out.printf("🎲Turn: %s ",currentPlayer.getName());
     }
 
     private void displayHiddenWord(){
         System.out.print("🔎Hidden word: ");
         word.displayHidden();
+    }
+
+    private void displayNumOfHint(int numOfHints, boolean hintDisabled){
+        numOfHints = (hintDisabled) ? 0 : numOfHints;
+        System.out.print("💡Hints: " + numOfHints);
+    }
+
+    private void displayTopBanner(int numOfHints, boolean hintDisabled){
+        displayPlayerTurn();
+        System.out.print("\t\t");
+        displayHiddenWord();
+        System.out.print("\t\t");
+        displayNumOfHint(numOfHints, hintDisabled);
         System.out.print("\n");
+
     }
 
     private void displayIncorrectSolveMessage(){
@@ -122,17 +130,17 @@ public class GameManager {
     private void promptFirstTurnGuess(){
         // if it's players first turn, player must guess
         guessLetter = input.firstTurnGuess();
-        currentPlayer.setHasGuessed(true);
+        currentPlayer.setGuessed(true);
     }
 
     // standard prompt after first guess
-    private void promptGuessOrSolve(){
-        guessLetter = input.promptGuessOrSolve(word.getHiddenWordArray());
+    private void promptGuessOrSolve(boolean hintDisabled){
+        guessLetter = input.promptGuessOrSolve(word.getHiddenWordArray(), currentPlayer.hasUsedHint(), hintDisabled);
     }
 
     // display incorrect letter message
     private void displayIncorrectLetterMessage(){
-        System.out.println("❌Sorry " + currentPlayer.getName()+ ", '" + guessLetter + "' was not found in the hidden word, better luck next time...");
+        System.out.println("❌Sorry " + currentPlayer.getName()+ ", '" + guessLetter + "' was not found in the hidden word, better luck next time...\n\n");
     }
 
     private void handleCorrectLetter(int numOfLettersFound){
@@ -145,6 +153,7 @@ public class GameManager {
         // update and display the hidden word with found letter/s
         word.checkGuessedLetter(guessLetter); // updates hidden word with found letter/s
         displayHiddenWord();
+        System.out.print("\n");
     }
 
     private void checkSolveByLetter(int numOfLettersFound){
@@ -184,7 +193,7 @@ public class GameManager {
     }
 
     private void checkSolveAttempt(){
-        guessedWord = input.promptSolveWord();
+        guessedWord = input.promptSolveWord(); // ask for the solve word
         word.processSolveWord(guessedWord);
     }
 

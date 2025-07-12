@@ -1,25 +1,25 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class Hint extends Word{
+public class Hint extends Word {
     private char hintLetter;
-    private boolean disableHint;
+    private boolean hintDisabled;
 
     public Hint(String pickedWord) {
         super(pickedWord);
         hintLetter = '*';
-        this.disableHint = false;
+        this.hintDisabled = false;
     }
 
-    public char ccc(char[] hiddenWordArray){
+    public char ccc(char[] hiddenWordArray) {
         char hint;
         int length = hiddenWordArray.length;
         Random random = new Random();
 
-        while (true){
+        while (true) {
             int ran = random.nextInt(0, length);
 
-            if(hiddenWordArray[ran] == '_'){
+            if (hiddenWordArray[ran] == '_') {
                 System.out.print("in hint: ");
                 System.out.println(hiddenWordArray);
                 System.out.println(wordCharArray[ran]);
@@ -31,11 +31,11 @@ public class Hint extends Word{
         return hint;
     }
 
-    public int lastLetter(){
+    public int hiddenLetterLeft(char[] hiddenWordArray) {
         int numOfHiddenLeft = 0;
 
-        for(char letter : hiddenWordArray){
-            if(letter == '_'){
+        for (char letter : hiddenWordArray) {
+            if (letter == '_') {
                 numOfHiddenLeft += 1;
             }
         }
@@ -43,9 +43,15 @@ public class Hint extends Word{
         return numOfHiddenLeft;
     }
 
-    public void setDisableHint(boolean disableHint){
-        this.disableHint = disableHint;
+    public boolean isHintDisabled() {
+        return hintDisabled;
+    }
+
+    public void setHintDisabled(boolean hintDisabled) {
+        this.hintDisabled = hintDisabled;
     }
 
 
 }
+
+

@@ -4,6 +4,9 @@ public class Player {
     private PlayerScore playerScore;
     private String playerResponse;
     private boolean guessed;
+    private boolean usedHint;
+    private int numOfHints;
+
 
 
     public Player(String name){
@@ -12,6 +15,8 @@ public class Player {
         this.playerScore = new PlayerScore();
         this.playerResponse = "";
         this.guessed = false;
+        this.usedHint = false;
+        this.numOfHints = 1;
     }
 
     // GETTER
@@ -43,12 +48,28 @@ public class Player {
         return guessed;
     }
 
-    public void setHasGuessed(boolean guessed){
+    public void setGuessed(boolean guessed){
         this.guessed  = guessed;
+    }
+
+    public boolean hasUsedHint(){
+        return usedHint;
+    }
+
+    public void setUsedHint(boolean usedHint){
+        this.usedHint = usedHint;
     }
 
     public void setName(String name){
         this.name = name;
     }
 
+    public int getNumOfHints(){
+        return numOfHints;
+    }
+
+    public void setNumOfHints(int numOfHints) {
+        this.numOfHints = numOfHints;
+    }
 }
+

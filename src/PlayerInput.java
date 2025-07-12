@@ -57,17 +57,29 @@ public class PlayerInput {
     }
 
     // letter guess input and validation
-    public String promptGuessOrSolve(char[] hiddenWordArray){
+    public String promptGuessOrSolve(char[] hiddenWordArray, boolean hasUsedHint, boolean hintDisabled){
         while (true){
-            System.out.print("🤖Guess a letter, or type 'solve' to solve the word or 'hint' to use a hint: ");
-            playerInput = scanner.nextLine().toLowerCase().trim();
+            if(hasUsedHint || hintDisabled){
+                System.out.print("🤖Guess a letter, or type 'solve' to solve the word: ");
+                playerInput = scanner.nextLine().toLowerCase().trim();
+            }else{
+                System.out.print("🤖Guess a letter, or type 'solve' to solve the word or 'hint' to use a hint: ");
+                playerInput = scanner.nextLine().toLowerCase().trim();
+            }
+
 
             if(playerInput.isEmpty()){
                 System.out.println("🔶Please guess a letter or solve word...");
             }else if(playerInput.equals("solve")){
                 return playerInput;
             }else if(playerInput.equals("hint")){
-                return playerInput;
+                if(hasUsedHint){
+                    System.out.println("🔶You are out of hints, please guess a letter, or type 'solve' to solve the word...");
+                }else if(hintDisabled) {
+                    System.out.println("🔶Hints are disabled, please guess a letter, or type 'solve' to solve the word...");
+                }else{
+                    return playerInput;
+                }
             } else if(new String(hiddenWordArray).contains(String.valueOf(playerInput.charAt(0)))){
                 System.out.println("🔶'" + playerInput.charAt(0) + "' " + "has been already revealed, please guess another letter...");
             } else{
