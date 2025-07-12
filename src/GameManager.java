@@ -32,17 +32,19 @@ public class GameManager {
 
         // current player
         currentPlayer = player1;
-        System.out.println("========================  " + "🔷" + currentPlayer.getName() + "  ========================");
+        System.out.println("\n\n========================  " + "🔷" + currentPlayer.getName() + "  ========================");
 
         while (!word.isSolved()) {
+            // add to guessed letter list
             int lettersLeft = hint.hiddenLetterLeft(word.hiddenWordArray);
 
-            if(lettersLeft == 1){
+            if(lettersLeft == 2){
                 hint.setHintDisabled(true);
             }
 
             // display player turn and hidden word
             displayTopBanner(currentPlayer.getNumOfHints(), hint.isHintDisabled());
+            displayGuessedLetters(guessLetter); // already guessed letters
 
             // if it's players first turn
             if(!currentPlayer.hasGuessed()){
@@ -52,8 +54,7 @@ public class GameManager {
                 promptGuessOrSolve(hint.isHintDisabled());
 
                 if(guessLetter.equals("hint")){
-                    // TEST
-                    guessLetter = String.valueOf(hint.ccc(word.hiddenWordArray));
+                    guessLetter = String.valueOf(hint.getHint(word.hiddenWordArray));
                     currentPlayer.setNumOfHints(currentPlayer.getNumOfHints() - 1);
                     currentPlayer.setUsedHint(true);
                 }else if(guessLetter.equals("solve")){
@@ -75,10 +76,6 @@ public class GameManager {
     }
 
     // SUPPORT METHODS
-    public void handleHint(){
-
-    }
-
     private void switchPlayer(){
         currentPlayer = currentPlayer == player1 ? player2 : player1;
         String playerColor = currentPlayer == player1 ? "🔷" : "♦️";
@@ -87,6 +84,11 @@ public class GameManager {
     
     private void displayPlayerTurn(){
         System.out.printf("🎲Turn: %s ",currentPlayer.getName());
+    }
+
+    private void displayGuessedLetters(String guessLetter){
+        System.out.print("☑️Guessed letters: ");
+        word.guessedLetter(guessLetter);
     }
 
     private void displayHiddenWord(){
@@ -224,9 +226,10 @@ public class GameManager {
 
         // update and display the hidden word with found letter/s
         displayHiddenWord();
+        System.out.print("\n");
         displayIncorrectSolveMessage();
 
-        // display score
+        // display points and score
         System.out.println("✨-" + lettersLeft * 5 + " points");
         displayScore();
         switchPlayer();

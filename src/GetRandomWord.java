@@ -24,8 +24,10 @@ public class GetRandomWord {
 
         // hard
         if(DifficultyChosen.equalsIgnoreCase("hard")){
-            wordDifficulty = new ArrayList<>(Arrays.asList( "elephant", "sandwich", "umbrella", "backpack", "dinosaur", "mountain", "triangle", "microscope", "satellite", "whenever",
-                    "airplane", "computer", "notebook", "hospital", "volcano", "language", "chocolate", "treasure", "president", "invisible"));
+            wordDifficulty = new ArrayList<>(Arrays.asList("newspaper", "handshake", "assignment", "connection", "environment",
+                    "leadership", "personality", "houseplant", "friendship", "electricity",
+                    "performance", "government", "bathroom", "playground", "neighborhood",
+                    "celebration", "instruction", "lighthouse", "moonlight", "supermarket"));
         }
 
 

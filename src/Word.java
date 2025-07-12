@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Word {
@@ -5,6 +6,7 @@ public class Word {
     protected char[] wordCharArray;
     protected char[] hiddenWordArray;
     protected boolean solved;
+    protected ArrayList<String> guessedLetters;
 
 
     // CONSTRUCTOR
@@ -14,6 +16,7 @@ public class Word {
         this.hiddenWordArray = new char[wordCharArray.length];
         Arrays.fill(hiddenWordArray, '_');
         this.solved = false;
+        this.guessedLetters = new ArrayList<>();
     }
 
     // METHODS
@@ -42,6 +45,18 @@ public class Word {
             }
         }
 
+    }
+
+    public void guessedLetter(String guessLetter){
+        if(guessedLetters.isEmpty()){
+            guessedLetters.add(guessLetter);
+        }else{
+            if(!guessedLetters.contains(guessLetter)){
+                guessedLetters.add(guessLetter);
+            }
+        }
+
+        System.out.println(guessedLetters);
     }
 
     public void displayHidden(){

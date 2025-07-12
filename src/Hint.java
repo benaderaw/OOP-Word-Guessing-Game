@@ -11,7 +11,7 @@ public class Hint extends Word {
         this.hintDisabled = false;
     }
 
-    public char ccc(char[] hiddenWordArray) {
+    public char getHint(char[] hiddenWordArray) {
         char hint;
         int length = hiddenWordArray.length;
         Random random = new Random();
@@ -20,9 +20,6 @@ public class Hint extends Word {
             int ran = random.nextInt(0, length);
 
             if (hiddenWordArray[ran] == '_') {
-                System.out.print("in hint: ");
-                System.out.println(hiddenWordArray);
-                System.out.println(wordCharArray[ran]);
                 hint = wordCharArray[ran];
                 break;
             }
