@@ -26,6 +26,7 @@ public class GameManager {
 
     // MAIN  METHODS
     public void playGame(){
+
         // display word as hidden
         System.out.print("\n");
         System.out.println(pickedWord);
@@ -37,6 +38,8 @@ public class GameManager {
         System.out.println("========================  " + "🔷" + currentPlayer.getName() + "  ========================");
 
         while (!word.isSolved()) {
+            System.out.print("top: ");
+            System.out.println(word.hiddenWordArray);
             int lettersLeft = hint.lettersLeft();
             System.out.print(lettersLeft);
 
@@ -57,9 +60,7 @@ public class GameManager {
 
                 if(guessLetter.equals("hint")){
                     // TEST
-                    String ff = String.valueOf(hint.ccc());
-                    System.out.print("Hint word is: " + ff);
-                    System.out.print("\n");
+                    guessLetter = String.valueOf(hint.ccc(word.hiddenWordArray));
                 }else if(guessLetter.equals("solve")){
                     checkSolveAttempt();
 
@@ -75,7 +76,6 @@ public class GameManager {
 
             // check if letter is in the chosen word
             checkGuessAttempt();
-
         }
     }
 
@@ -165,7 +165,7 @@ public class GameManager {
 
     public void checkGuessAttempt(){
         if (!pickedWord.contains(guessLetter)) {
-            displayIncorrectSolveMessage();
+            displayIncorrectLetterMessage();
             switchPlayer();
         }else{
             // show how many letters found

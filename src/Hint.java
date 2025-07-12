@@ -11,18 +11,24 @@ public class Hint extends Word{
         this.disableHint = false;
     }
 
-    public char ccc(){
-        int length = this.hiddenWordArray.length;
+    public char ccc(char[] hiddenWordArray){
+        char hint;
+        int length = hiddenWordArray.length;
         Random random = new Random();
 
         while (true){
             int ran = random.nextInt(0, length);
 
             if(hiddenWordArray[ran] == '_'){
+                System.out.print("in hint: ");
+                System.out.println(hiddenWordArray);
                 System.out.println(wordCharArray[ran]);
-                return wordCharArray[ran];
+                hint = wordCharArray[ran];
+                break;
             }
         }
+
+        return hint;
     }
 
     public int lastLetter(){
