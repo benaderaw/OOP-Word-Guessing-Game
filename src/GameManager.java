@@ -27,7 +27,6 @@ public class GameManager {
     // MAIN  METHODS
     public void playGame(){
         // display word as hidden
-        System.out.println("\n" + pickedWord);
         Hint hint = new Hint(pickedWord);
 
         // current player
